@@ -14,7 +14,7 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
 	- No Lock Screen
 	- Disable Ctrl+Alt+Del	
 	- Disable UAC
-	- Disable DEP (Turn on DEP for essential Windows programs adn services only)
+	- Disable DEP (Turn on DEP for essential Windows programs and services only)
 	- Disable SEHOP
 	- Enable Video Hardware Acceleration ([Thanks @cjrcl](https://forums.mydigitallife.net/threads/poweshell-script-enabling-gfx-hw-acceleration-in-windows-server-2016.72294/))
 	- Enable Audio Hardware Acceleration

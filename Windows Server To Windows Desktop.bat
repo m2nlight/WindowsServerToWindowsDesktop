@@ -32,7 +32,7 @@ echo - Disable Ctrl+Alt+Del
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableCAD /t REG_DWORD /d 1 /f>nul
 echo - Disable UAC
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0x0 /f>nul
-echo - Disable DEP (Turn on DEP for essential Windows programs adn services only)
+echo - Disable DEP (Turn on DEP for essential Windows programs and services only)
 bcdedit /set {current} nx OptIn>nul
 ::bcdedit /set {current} nx AlwaysOff>nul
 echo - Disable SEHOP
