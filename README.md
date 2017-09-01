@@ -9,14 +9,24 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
 	- Automatic Audio Server
 
 * Config Registry and GroupPolicy
-	- Shutdown without logon
-	- Disable Ctrl+Alt+Del
+	- Enable Shutdown without logon
 	- Disable Shutdown reason On
+	- No Lock Screen
+	- Disable Ctrl+Alt+Del	
+	- Disable UAC
+	- Disable DEP (Turn on DEP for essential Windows programs adn services only)
+	- Disable SEHOP
+	- Enable Video Hardware Acceleration ([Thanks @cjrcl](https://forums.mydigitallife.net/threads/poweshell-script-enabling-gfx-hw-acceleration-in-windows-server-2016.72294/))
+	- Enable Audio Hardware Acceleration
 	- CPU Priority for Program
+	- Adjust Visual Effects (Manual)
+	- Adjust IE MaxConnection
 	- IE Security Policy
-	- No autorun Server Manager
+	- Disable TCP Auto-Tuning
+	- Change Power Scheme To High Performance
+	- No Autorun Server Manager
 	- Disable Password complexity and Minimum password length
-	- Administrator's Password nerver expires
+	- Current user Password never expires
 
 * Config Windows Feature
 	- BitLocker
@@ -25,11 +35,9 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
 	- qWave
 
 ## Manual configuration
-1. Press `Win+Break` to open System Window, click `Advanced System Config` to show System Properties Dialog, and select `Advance` Tab. Click first `Setting` button to change Visual Effect.
-2. You can close Windows Defender in Windows Settings -> Update and Security - Windows Defender
-3. Install Flash player use [install_flash_player_23_active_x.exe](http://download.macromedia.com/get/flashplayer/current/licensing/win/install_flash_player_23_active_x.exe) with Windows 7 compatibility mode on file property dialog.
-4. Setup Graphics drivers and DirectX etc.
-5. Have fun!
+1. You can close Windows Defender in Windows Settings -> Update and Security - Windows Defender
+2. Install Flash player use [install_flash_player_ax.exe](http://fpdownload.macromedia.com/pub/flashplayer/latest/help/install_flash_player_ax.exe) with Windows 7 compatibility mode on file property dialog.
+3. Install Graphics drivers and DirectX etc.
 
 ## About Docker in Windows Server 2016
 Please read [this blog](https://blog.docker.com/2016/09/build-your-first-docker-windows-server-container/).
