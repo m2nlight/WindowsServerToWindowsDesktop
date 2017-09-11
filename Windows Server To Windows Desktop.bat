@@ -18,9 +18,13 @@ pause>nul
 goto :END
 :START
 echo (1/3) Config Service
-echo - Automatic Audio Server
 PowerShell /Command "&{Import-Module ServerManager}"
+echo - [Automatic] Windows Audio
 PowerShell /Command "&{Set-Service "Audiosrv" -StartupType Automatic}"
+echo - [Automatic] Windows Audio Endpoint Builder
+PowerShell /Command "&{Set-Service "AudioEndpointBuilder" -StartupType Automatic}"
+echo - [Manual] Windows Remote Management (WS-Management)
+PowerShell /Command "&{Set-Service "WinRM" -StartupType Manual}"
 echo (2/3) Config Registry and GroupPolicy
 echo - Enable Shutdown without logon
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ShutdownWithoutLogon /t REG_DWORD /d 1 /f>nul
