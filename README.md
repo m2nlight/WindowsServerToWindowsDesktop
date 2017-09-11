@@ -6,8 +6,9 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
 
 ## BAT Will Do:
 * Config Service
-	- Automatic Audio Server
-
+	- \[Automatic] Windows Audio
+	- \[Automatic] Windows Audio Endpoint Builder
+	- \[Manual] Windows Remote Management (WS-Management)
 * Config Registry and GroupPolicy
 	- Enable Shutdown without logon
 	- Disable Shutdown reason On
