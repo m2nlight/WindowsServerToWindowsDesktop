@@ -3,6 +3,39 @@ pushd %~dp0
 set gpfile=temp_gpfile
 set currentuser=%username%
 set videopsfile=Acceleration.Level.ps1
+rem UAC code begin
+set getadminfile=getadmin.vbs
+echo Windows Server To Windows Desktop
+echo =================================
+echo Starting
+"%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\SYSTEM" >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    goto :Admin
+) else (
+    if %ERRORLEVEL% EQU 2 (
+        goto :PathErr
+    ) else (
+        goto :UAC
+    )
+)
+:PathErr
+echo.
+echo Please open "%~n0%~x0" by explorer.exe
+echo.
+echo Press any key to explore the folder...
+pause>nul
+start "" "%SYSTEMROOT%\system32\explorer.exe" /select,"%~f0"
+goto :END
+:UAC
+echo Set sh = CreateObject^("Shell.Application"^) > %getadminfile%
+echo sh.ShellExecute "%~f0", "", "", "runas", 1 >> %getadminfile%
+ping 127.1 -n 1 >nul
+"%SYSTEMROOT%\system32\cscript.exe" %getadminfile%
+goto :END
+:Admin
+if exist %getadminfile% ( del %getadminfile% )
+cls
+rem UAC code end
 if "%currentuser%" == "" set currentuser=Administrator
 echo Windows Server To Windows Desktop
 echo =================================
@@ -30,9 +63,9 @@ echo - Enable Shutdown without logon
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ShutdownWithoutLogon /t REG_DWORD /d 1 /f>nul
 echo - Disable Shutdown reason On
 REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Reliability" /v ShutdownReasonOn /t REG_DWORD /d 0 /f>nul
-echo - No Lock Screen
-reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 0x1 /f>nul
-echo - Disable Ctrl+Alt+Del
+:: echo - No Lock Screen
+:: reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 0x1 /f>nul
+echo - Disable Ctrl+Alt+Del Login
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableCAD /t REG_DWORD /d 1 /f>nul
 echo - Disable UAC
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0x0 /f>nul
@@ -41,6 +74,8 @@ bcdedit /set {current} nx OptIn>nul
 ::bcdedit /set {current} nx AlwaysOff>nul
 echo - Disable SEHOP
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\kernel" /v "DisableExceptionChainValidation" /t REG_DWORD /d 0x1 /f>nul
+echo - Enable disk performance counters
+diskperf -Y>nul
 if exist %videopsfile%. (
 echo - Enable Video Hardware Acceleration
 PowerShell -ExecutionPolicy Unrestricted -File %videopsfile%>nul
@@ -95,4 +130,5 @@ echo Completed!
 echo Press any key to exit...
 pause>nul
 :END
+if exist %getadminfile% ( del %getadminfile% )
 popd

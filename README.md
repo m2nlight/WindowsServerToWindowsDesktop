@@ -13,11 +13,11 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
 * Config Registry and GroupPolicy
   - Enable Shutdown without logon
   - Disable Shutdown reason On
-  - No Lock Screen
   - Disable Ctrl+Alt+Del
   - Disable UAC
   - Disable DEP (Turn on DEP for essential Windows programs and services only)
   - Disable SEHOP
+  - Enable disk performance counters
   - Enable Video Hardware Acceleration ([Thanks @cjrcl](https://forums.mydigitallife.net/threads/poweshell-script-enabling-gfx-hw-acceleration-in-windows-server-2016.72294/))
   - Enable Audio Hardware Acceleration
   - CPU Priority for Program
