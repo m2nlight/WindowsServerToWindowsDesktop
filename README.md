@@ -13,7 +13,8 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
 * Config Registry and GroupPolicy
   - Enable Shutdown without logon
   - Disable Shutdown reason On
-  - Disable Ctrl+Alt+Del
+  - ~~No Lock Screen~~
+  - Disable Ctrl+Alt+Del login
   - Disable UAC
   - Disable DEP (Turn on DEP for essential Windows programs and services only)
   - Disable SEHOP
@@ -29,6 +30,8 @@ A bat script to auto config Windows Server 2016 to "Windows Desktop"
   - No Autorun Server Manager
   - Disable Password complexity and Minimum password length
   - Current user Password never expires
+  - Disable Application Experience task schedulers
+  - Disable Customer Experience Improvement Program task schedulers
 
 * Config Windows Feature
   - BitLocker

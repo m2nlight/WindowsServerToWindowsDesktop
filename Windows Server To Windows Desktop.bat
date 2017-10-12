@@ -65,7 +65,7 @@ echo - Disable Shutdown reason On
 REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Reliability" /v ShutdownReasonOn /t REG_DWORD /d 0 /f>nul
 :: echo - No Lock Screen
 :: reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 0x1 /f>nul
-echo - Disable Ctrl+Alt+Del Login
+echo - Disable Ctrl+Alt+Del login
 REG ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v DisableCAD /t REG_DWORD /d 1 /f>nul
 echo - Disable UAC
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0x0 /f>nul
@@ -119,6 +119,14 @@ echo - %currentuser%'s Password never expires
 wmic Path Win32_UserAccount Where Name="%currentuser%" Set PasswordExpires="FALSE">nul
 echo   PasswordExpires List:
 wmic useraccount get Name,PasswordExpires
+echo - Disable Application Experience task schedulers
+schtasks /change /tn "\Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser" /disable>nul 2>nul
+schtasks /change /tn "\Microsoft\Windows\Application Experience\ProgramDataUpdater" /disable>nul 2>nul
+schtasks /change /tn "\Microsoft\Windows\Application Experience\StartupAppTask" /disable>nul 2>nul
+echo - Disable Customer Experience Improvement Program task schedulers
+schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\Consolidator" /disable>nul 2>nul
+schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\KernelCeipTask" /disable>nul 2>nul
+schtasks /change /tn "\Microsoft\Windows\Customer Experience Improvement Program\UsbCeip" /disable>nul 2>nul
 echo (3/3) Config Windows Feature
 echo - BitLocker
 echo - Direct-Play
