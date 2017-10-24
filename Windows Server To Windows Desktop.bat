@@ -39,13 +39,26 @@ rem UAC code end
 if "%currentuser%" == "" set currentuser=Administrator
 echo Windows Server To Windows Desktop
 echo =================================
-PowerShell /Command "&{Get-WmiObject -Class Win32_OperatingSystem | Select-Object -ExpandProperty Caption}"
+::PowerShell /Command "&{Get-WmiObject -Class Win32_OperatingSystem | Select-Object -ExpandProperty Caption}"
+set caption=
+for /f "skip=1 delims=" %%t in ('wmic os get caption') do (
+if not defined caption set caption=%%t
+)
+echo %caption%
+echo %caption%|find /i "Windows Server">nul 2>nul
+if ERRORLEVEL 1 goto :OSERR
 echo Current Domain: %USERDOMAIN%
 echo Current User: %currentuser%
 echo.
 set /p tmpInput=Maybe will restart computer. Are you ready? (Y/N):
 if /i "%tmpInput%"=="y" goto :START
 echo Canelled.
+echo Press any key to exit...
+pause>nul
+goto :END
+:OSERR
+echo.
+echo ERROR: Unsupported operating system!
 echo Press any key to exit...
 pause>nul
 goto :END
