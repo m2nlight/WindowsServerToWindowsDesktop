@@ -1,4 +1,5 @@
 @echo off
+PATH="%SYSTEMROOT%\system32";%PATH%
 pushd %~dp0
 set gpfile=temp_gpfile
 set currentuser=%username%
